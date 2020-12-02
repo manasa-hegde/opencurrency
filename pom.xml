@@ -55,8 +55,24 @@
                             <format>html</format>
                         </formats>
                     </coverage>
+                    <cloudHubDeployment>
+   						 <uri>https://anypoint.mulesoft.com</uri>
+    					<muleVersion>4.3.0</muleVersion>
+   						 <!-- Deploy User Parameter -->
+   						 <username>mansa_hegde53</username>
+   						 <password>Mansa@2605password></password>
+   						 <!-- Environment Parameter -->
+    					<environment>Sandbox</environment>
+   						 <applicationName>opencurrency-conversion-app</applicationName>
+    					<businessGroup>api</businessGroup>
+    					<workerType>Micro</workerType>
+    					<workers>1</workers>
+    					<objectStoreV2>true</objectStoreV2>
+    						
+					</cloudHubDeployment>
                 </configuration>
             </plugin>
+          
         </plugins>
 	</build>
 
