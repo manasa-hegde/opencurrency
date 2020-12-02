@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd">
+	<http:request-config name="opencurrency-convert-configuration" doc:name="HTTP Request configuration" doc:id="3ca10957-88ca-4ea0-8d0b-4b4a79ba026c" basePath="/api" >
+		<http:request-connection host="openexchangerates.org" connectionIdleTimeout="1000000000" protocol="HTTPS"/>
+	</http:request-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="82779868-4d9a-4f4c-ad9c-bb3bf0ee3dbf" file="config.yaml" />
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="b7853212-3aae-4c57-bc57-e484940e65d9" file="secure.properties" key="mulesoft" >
+		<secure-properties:encrypt algorithm="Blowfish" />
+	</secure-properties:config>
+	<flow name="convert-currencyvalue-flow" doc:id="910d42dd-774c-4f4d-b599-1ba7724d6494" >
+		<set-variable value="#[message.attributes.uriParams.'to' default 'INR']" doc:name="toCurrency" doc:id="0adba403-ceb9-4793-8559-ffaa98215c28" variableName="toCurrency"/>
+		<set-variable value="#[message.attributes.uriParams.'amount' default 100]" doc:name="amountToConvert" doc:id="456acd22-ec74-42bf-8d9f-11ea4ecb771d" variableName="amount"/>
+		<http:request method="GET" doc:name="request-GET conversion rates" doc:id="902a40ae-0bb4-40d2-bf6a-f67842a0491b" config-ref="opencurrency-convert-configuration" path="/latest.json?app_id=${secure::converter.app_id}">
+		</http:request>
+		<ee:transform doc:name="all conversion rates to required" doc:id="9be97ff9-7c23-46f3-b1c0-43ecd4ff3980" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+var ToCurrency = vars.toCurrency as String
+var convertRate = payload.rates[ToCurrency] as Number 
+ 
+var amount = vars.amount as Number
+
+---
+
+    "conversion": {
+        "value": amount*convertRate,
+        "conversionRate": convertRate
+    }
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Log Payload response from The API request" doc:id="a806c9cd-04fa-4025-8d2a-bd1d0340eb3a" message="#[payload]"/>
+	</flow>
+</mule>

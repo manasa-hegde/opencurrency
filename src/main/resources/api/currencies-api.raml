@@ -1,0 +1,21 @@
+#%RAML 1.0
+title: currencies-api
+
+types:
+  account: !include /datatypes/conversion.raml
+
+/convert/{amount}/{from}/{to}:
+  description: gets conversion from USD to required currency
+  get:
+   
+    responses:
+        200:
+          body:
+            application/json:
+              example: !include examples/currencies.raml
+                 
+               
+  
+
+
+      
