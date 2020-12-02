@@ -14,7 +14,7 @@ http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/sc
 		<secure-properties:encrypt algorithm="Blowfish" />
 	</secure-properties:config>
 	<flow name="convert-currencyvalue-flow" doc:id="910d42dd-774c-4f4d-b599-1ba7724d6494" >
-		<set-variable value="#[message.attributes.uriParams.'to' default 'INR']" doc:name="toCurrency" doc:id="0adba403-ceb9-4793-8559-ffaa98215c28" variableName="toCurrency"/>
+		<set-variable value="#[message.attributes.uriParams.'to' default 'INR']" doc:name="currencyToConvert" doc:id="0adba403-ceb9-4793-8559-ffaa98215c28" variableName="toCurrency"/>
 		<set-variable value="#[message.attributes.uriParams.'amount' default 100]" doc:name="amountToConvert" doc:id="456acd22-ec74-42bf-8d9f-11ea4ecb771d" variableName="amount"/>
 		<http:request method="GET" doc:name="request-GET conversion rates" doc:id="902a40ae-0bb4-40d2-bf6a-f67842a0491b" config-ref="opencurrency-convert-configuration" path="/latest.json?app_id=${secure::converter.app_id}">
 		</http:request>
