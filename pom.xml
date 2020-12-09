@@ -60,7 +60,7 @@
     					<muleVersion>4.3.0</muleVersion>
    						 <!-- Deploy User Parameter -->
    						 <username>mansa_hegde53</username>
-   						 <password>Mansa@2605password></password>
+   						 <password>Mansa@2605password&gt;</password>
    						 <!-- Environment Parameter -->
     					<environment>Sandbox</environment>
    						 <applicationName>opencurrency-conversion-app</applicationName>
@@ -77,18 +77,6 @@
 	</build>
 
 	<dependencies>
-        <dependency>
-            <groupId>org.mule.connectors</groupId>
-            <artifactId>mule-http-connector</artifactId>
-            <version>1.5.22</version>
-            <classifier>mule-plugin</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.mule.connectors</groupId>
-            <artifactId>mule-sockets-connector</artifactId>
-            <version>1.2.0</version>
-            <classifier>mule-plugin</classifier>
-        </dependency>
 		<dependency>
             <groupId>org.mule.modules</groupId>
             <artifactId>mule-apikit-module</artifactId>
@@ -120,6 +108,31 @@
             <version>2.3.1</version>
             <classifier>mule-plugin</classifier>
             <scope>test</scope>
+        </dependency>
+    	<dependency>
+            <groupId>org.mule.connectors</groupId>
+            <artifactId>mule-http-connector</artifactId>
+            <version>1.5.19</version>
+            <classifier>mule-plugin</classifier>
+        </dependency>
+    	<dependency>
+            <groupId>org.mule.connectors</groupId>
+            <artifactId>mule-sockets-connector</artifactId>
+            <version>1.1.5</version>
+            <classifier>mule-plugin</classifier>
+        </dependency>
+    	<dependency>
+            <groupId>aa4ab831-d3a1-405b-91d5-06248210b0da</groupId>
+            <artifactId>mule-plugin-currencies-api</artifactId>
+            <version>1.0.0</version>
+            <classifier>mule-plugin</classifier>
+        </dependency>
+    	<dependency>
+            <groupId>aa4ab831-d3a1-405b-91d5-06248210b0da</groupId>
+            <artifactId>currencies-api</artifactId>
+            <version>1.0.0</version>
+            <classifier>raml</classifier>
+            <type>zip</type>
         </dependency>
     </dependencies>
 
