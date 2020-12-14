@@ -60,7 +60,7 @@
     					<muleVersion>4.3.0</muleVersion>
    						 <!-- Deploy User Parameter -->
    						 <username>mansa_hegde53</username>
-   						 <password>Mansa@2605password&gt;</password>
+   						 <password>Mansa@2605</password>
    						 <!-- Environment Parameter -->
     					<environment>Sandbox</environment>
    						 <applicationName>opencurrency-conversion-app</applicationName>
